@@ -19,8 +19,8 @@ public class Airport {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "ident")
-    private String ident;
+    @Column(name = "code")
+    private String code;
 
     @Column(name = "type")
     private String type;
@@ -37,8 +37,8 @@ public class Airport {
     @Column(name = "continent")
     private String continent;
 
-    @Column(name = "iso_country")
-    private String isoCountry;
+    @Column(name = "country")
+    private String country;
 
     @Column(name = "municipality")
     private String municipality;

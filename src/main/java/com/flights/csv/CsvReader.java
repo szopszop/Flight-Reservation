@@ -6,6 +6,7 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
@@ -15,9 +16,10 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
+@NoArgsConstructor
 public class CsvReader {
-    private final String filePath;
-    private final CsvFileFilter filter;
+    private String filePath;
+    private CsvFileFilter filter;
 
     public List<String[]> readFile() throws IOException, CsvException {
         try (CSVReader reader = new CSVReaderBuilder(new FileReader(filePath))
