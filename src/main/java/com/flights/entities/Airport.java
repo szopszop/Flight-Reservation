@@ -1,13 +1,12 @@
 package com.flights.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -17,19 +16,34 @@ import java.util.UUID;
 public class Airport {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "uuid")
-    private UUID id;
+    @Column(name = "id")
+    private Long id;
 
-    @NotNull
+    @Column(name = "ident")
+    private String ident;
+
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "name")
     private String name;
 
-    @NotNull
-    private String city;
+    @Column(name = "latitude_deg")
+    private double latitudeDeg;
 
-    @NotNull
-    private String country;
+    @Column(name = "longitude_deg")
+    private double longitudeDeg;
 
+    @Column(name = "continent")
+    private String continent;
+
+    @Column(name = "iso_country")
+    private String isoCountry;
+
+    @Column(name = "municipality")
+    private String municipality;
+
+    @Column(name = "home_link")
+    private String homeLink;
 
 }
