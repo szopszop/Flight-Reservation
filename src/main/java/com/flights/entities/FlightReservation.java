@@ -36,7 +36,5 @@ public class FlightReservation {
     @Column(nullable = false)
     private LocalDate flightDate;
 
-    @Column(nullable = false)
-    private int numOfPassengers;
 
 }
