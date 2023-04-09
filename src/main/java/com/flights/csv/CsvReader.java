@@ -4,9 +4,6 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import com.opencsv.exceptions.CsvValidationException;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
@@ -15,21 +12,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
 public class CsvReader {
-    private String filePath;
-    private CsvFileFilter filter;
+    private CsvValidator validator;
 
-    public List<String[]> readFile() throws IOException, CsvException {
+    public List<String[]> readFile(String filePath) throws IOException, CsvException {
+        List<String[]> records = null;
+        try {
+            records = readCsvFile(filePath);
+            validator.validate(records);
+        } catch (IOException | CsvException e) {
+            throw new RuntimeException("Failed to read CSV file", e);
+        }
+        return records;
+    }
+
+    private List<String[]> readCsvFile(String filePath) throws IOException, CsvException {
         try (CSVReader reader = new CSVReaderBuilder(new FileReader(filePath))
                 .withCSVParser(new CSVParserBuilder().withSeparator(',').withQuoteChar('"').build()).build()) {
             return reader.readAll().stream()
                     .skip(1)
-                    .filter(filter::filterLine)
                     .collect(Collectors.toList());
-        } catch (CsvValidationException e) {
-            throw new RuntimeException(e);
         }
     }
 }
