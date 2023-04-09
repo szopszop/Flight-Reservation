@@ -7,19 +7,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AirportService {
 
     private final CsvReader csvReader;
-    DataFilter dataFilter;
-    public Set<String> getIATACodes() {
+    private final DataFilter dataFilter;
+
+
+    public List<String[]> getLargeAirports() {
         String airportsCsvFilePath = "src/main/resources/humData/airports-humData.csv";
         List<String[]> unfilteredAirportsData = csvReader.readFile(airportsCsvFilePath);
+        int row = 2;
+        String filter = "large_airport";
+        return dataFilter.doFilter(unfilteredAirportsData, row, filter);
+    }
+
+    public Set<String> getIATACodes() {
+        List<String[]> largeAirports = getLargeAirports();
         int column = 13;
-        return dataFilter.getKeys(unfilteredAirportsData, column);
+        return dataFilter.getKeys(largeAirports, column);
     }
 
     public List<String[]> getAllAirportsOpenFlight() {
@@ -27,12 +35,11 @@ public class AirportService {
         return csvReader.readFile(airportsCsvFilePath);
     }
 
-    public List<String[]> filterAirports() {
+    public List<String[]> getFilteredAirports() {
         List<String[]> allAirportsFromOpenData = getAllAirportsOpenFlight();
         Set<String> IATACodes = getIATACodes();
-        return allAirportsFromOpenData.stream()
-                .filter(row -> IATACodes.contains(row[4]))
-                .collect(Collectors.toList());
+        int column = 4;
+        return dataFilter.doFilter(allAirportsFromOpenData, column, IATACodes);
     }
 
 

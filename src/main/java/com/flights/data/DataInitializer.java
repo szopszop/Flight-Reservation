@@ -1,7 +1,5 @@
 package com.flights.data;
 
-import com.flights.csv.CsvReader;
-import com.flights.csv.CsvValidator;
 import com.flights.entities.Airport;
 import com.flights.mapper.AirportMapper;
 import com.flights.repositories.AirportRepository;
@@ -29,17 +27,31 @@ public class DataInitializer {
 
 
     @PostConstruct
-    public void init() throws IOException, CsvException {
+    public void init() {
 
-        List<String[]> largeAirportsHumData = airportService.getLargeAirports();
-//        List<String[]> allAirportsOpenFlights = airportService.
+        transferAirportsToDatabase();
+
+    }
+
+    private void transferAirportsToDatabase() {
+        List<String[]> filteredAirports = airportService.getFilteredAirports();
+
 
         List<Airport> airports = new ArrayList<>();
-        for (String[] airportData : largeAirportsHumData) {
-            Airport airport = airportMapper.mapToAirport(airportData);
-            airports.add(airport);
+        int lineNumber = 0;
+        for (String[] airportData : filteredAirports) {
+            try {
+                Airport airport = airportMapper.mapToAirport(airportData);
+                airports.add(airport);
+            } catch (NumberFormatException e) {
+                System.err.printf("Błąd przetwarzania danych w linii %d: %s%n", lineNumber, e.getMessage());
+                for (String s :airportData) {
+                    System.out.println(s);
+                }
+                e.printStackTrace();
+            }
+            lineNumber++;
         }
         airportRepository.saveAll(airports);
-
     }
 }

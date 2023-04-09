@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.ZoneId;
+import java.util.TimeZone;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,32 +21,24 @@ public class Airport {
     @Id
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "code")
-    private String code;
-
-    @Column(name = "type")
-    private String type;
-
     @Column(name = "name")
     private String name;
-
-    @Column(name = "latitude_deg")
-    private double latitudeDeg;
-
-    @Column(name = "longitude_deg")
-    private double longitudeDeg;
-
-    @Column(name = "continent")
-    private String continent;
-
+    @Column(name = "city")
+    private String city;
     @Column(name = "country")
     private String country;
+    @Column(name = "iata_code")
+    private String IATA_Code;
+    @Column(name = "icao_code")
+    private String ICAO_Code;
+    @Column(name = "latitude")
+    private double latitude;
+    @Column(name = "longitude")
+    private double longitude;
+    @Column(name = "timezone")
+    private double timezone;
+    @Column(name = "dst")
+    private String dst;
 
-    @Column(name = "municipality")
-    private String municipality;
-
-    @Column(name = "home_link")
-    private String homeLink;
 
 }
