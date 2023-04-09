@@ -1,33 +1,40 @@
 package com.flights.service;
 
 import com.flights.csv.CsvReader;
-import com.flights.csv.CsvReaderFactory;
 import com.flights.csv.DataFilter;
-import com.flights.csv.DataFilterFactory;
-import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AirportService {
 
-    private final CsvReaderFactory csvReaderFactory;
-    private final DataFilterFactory dataFilterFactory;
-
-    public List<String[]> getLargeAirports() {
-        CsvReader csvReader = csvReaderFactory.createReader();
-        DataFilter dataFilter = dataFilterFactory.createFilter();
+    private final CsvReader csvReader;
+    DataFilter dataFilter;
+    public Set<String> getIATACodes() {
         String airportsCsvFilePath = "src/main/resources/humData/airports-humData.csv";
-
         List<String[]> unfilteredAirportsData = csvReader.readFile(airportsCsvFilePath);
-        int row = 2;
-        String filter = "large_airport";
-        return dataFilter.doFilter(unfilteredAirportsData, row, filter);
+        int column = 13;
+        return dataFilter.getKeys(unfilteredAirportsData, column);
     }
+
+    public List<String[]> getAllAirportsOpenFlight() {
+        String airportsCsvFilePath = "src/main/resources/openFlights/airports-openFlights.csv";
+        return csvReader.readFile(airportsCsvFilePath);
+    }
+
+    public List<String[]> filterAirports() {
+        List<String[]> allAirportsFromOpenData = getAllAirportsOpenFlight();
+        Set<String> IATACodes = getIATACodes();
+        return allAirportsFromOpenData.stream()
+                .filter(row -> IATACodes.contains(row[4]))
+                .collect(Collectors.toList());
+    }
+
 
 
 
