@@ -1,5 +1,7 @@
 package com.flights.data;
 
+import com.flights.csv.CsvReader;
+import com.flights.csv.CsvValidator;
 import com.flights.entities.Airport;
 import com.flights.mapper.AirportMapper;
 import com.flights.repositories.AirportRepository;
@@ -25,13 +27,15 @@ public class DataInitializer {
     @Autowired
     private AirportService airportService;
 
+
     @PostConstruct
     public void init() throws IOException, CsvException {
 
-        List<String[]> largeAirports = airportService.getLargeAirports();
+        List<String[]> largeAirportsHumData = airportService.getLargeAirports();
+//        List<String[]> allAirportsOpenFlights = airportService.
 
         List<Airport> airports = new ArrayList<>();
-        for (String[] airportData : largeAirports) {
+        for (String[] airportData : largeAirportsHumData) {
             Airport airport = airportMapper.mapToAirport(airportData);
             airports.add(airport);
         }

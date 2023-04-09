@@ -17,17 +17,18 @@ public class AirportService {
 
     private final CsvReaderFactory csvReaderFactory;
     private final DataFilterFactory dataFilterFactory;
-    private final String airportsCsvFilePath;
 
-
-    public List<String[]> getLargeAirports() throws IOException, CsvException {
+    public List<String[]> getLargeAirports() {
         CsvReader csvReader = csvReaderFactory.createReader();
         DataFilter dataFilter = dataFilterFactory.createFilter();
+        String airportsCsvFilePath = "src/main/resources/humData/airports-humData.csv";
 
         List<String[]> unfilteredAirportsData = csvReader.readFile(airportsCsvFilePath);
         int row = 2;
         String filter = "large_airport";
         return dataFilter.doFilter(unfilteredAirportsData, row, filter);
     }
+
+
 
 }

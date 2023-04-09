@@ -13,13 +13,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class CsvReader {
-    private CsvValidator validator;
 
-    public List<String[]> readFile(String filePath) throws IOException, CsvException {
-        List<String[]> records = null;
+    public List<String[]> readFile(String filePath) {
+        List<String[]> records;
         try {
             records = readCsvFile(filePath);
-            validator.validate(records);
+            CsvValidator.validate(records);
         } catch (IOException | CsvException e) {
             throw new RuntimeException("Failed to read CSV file", e);
         }
