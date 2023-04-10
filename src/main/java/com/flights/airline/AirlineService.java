@@ -2,7 +2,6 @@ package com.flights.airline;
 
 import com.flights.csv.CsvReader;
 import com.flights.csv.DataFilter;
-import com.flights.airport.Airline;
 import com.flights.exception.MappingExceptionHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class AirlineService {
     private final AirlineRepository airlineRepository;
 
     private static final String AIRLINES_FILE_PATH ="src/main/resources/openFlights/airlines-openFlights.csv";
-    private static final int ACTIVE_COLUMN = 7;
+    public static final int ACTIVE_COLUMN = 7;
 
     public List<String[]> importAirlinesData() {
         return csvReader.readFile(AIRLINES_FILE_PATH);

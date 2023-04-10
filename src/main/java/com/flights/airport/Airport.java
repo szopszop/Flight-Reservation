@@ -29,11 +29,11 @@ public class Airport {
     @Column(name = "icao_code")
     private String ICAO_Code;
     @Column(name = "latitude")
-    private double latitude;
+    private Double latitude;
     @Column(name = "longitude")
-    private double longitude;
+    private Double longitude;
     @Column(name = "timezone")
-    private double timezone;
+    private Double timezone;
     @Column(name = "dst")
     private String dst;
 
