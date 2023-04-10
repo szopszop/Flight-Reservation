@@ -1,7 +1,5 @@
-package com.flights.controllers;
+package com.flights.airport;
 
-import com.flights.repositories.AirportRepository;
-import com.flights.service.AirportService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

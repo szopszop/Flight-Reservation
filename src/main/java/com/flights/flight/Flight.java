@@ -1,5 +1,7 @@
-package com.flights.entities;
+package com.flights.flight;
 
+import com.flights.airport.Airport;
+import com.flights.flightReservation.FlightReservation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

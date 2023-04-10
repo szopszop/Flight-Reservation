@@ -1,7 +1,6 @@
-package com.flights.controllers;
+package com.flights.flight;
 
 import com.flights.csv.CsvReader;
-import com.opencsv.exceptions.CsvException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

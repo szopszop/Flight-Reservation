@@ -1,10 +1,6 @@
-package com.flights.mapper;
+package com.flights.airport;
 
-import com.flights.entities.Airport;
 import org.springframework.stereotype.Component;
-
-import java.time.ZoneId;
-import java.util.TimeZone;
 
 @Component
 public class AirportMapper {

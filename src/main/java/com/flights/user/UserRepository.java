@@ -1,6 +1,6 @@
-package com.flights.repositories;
+package com.flights.user;
 
-import com.flights.entities.User;
+import com.flights.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

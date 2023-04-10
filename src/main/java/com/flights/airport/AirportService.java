@@ -1,10 +1,8 @@
-package com.flights.service;
+package com.flights.airport;
 
 import com.flights.csv.CsvReader;
 import com.flights.csv.DataFilter;
-import com.flights.entities.Airport;
-import com.flights.mapper.AirportMapper;
-import com.flights.repositories.AirportRepository;
+import com.flights.exception.MappingExceptionHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,26 +48,22 @@ public class AirportService {
         Set<String> IATACodes = getIATACodes();
         return dataFilter.doFilter(allAirportsFromOpenData, IATA_CODE_COLUMN, IATACodes);
     }
+
+    public List<Airport> mapAirportData(List<String[]> filteredAirports) {
+        MappingExceptionHandler<Airport> errorHandler = new MappingExceptionHandler<>();
+        List<Airport> airports = new ArrayList<>();
+        for (String[] airportData : filteredAirports) {
+            Airport airport = errorHandler.handleError(airportMapper::mapToAirport, airportData);
+            if (airport != null) {
+                airports.add(airport);
+            }
+        }
+        return airports;
+    }
     public void transferAirportsToDatabase() {
         List<String[]> filteredAirports = filterAirportByIATA();
-
-
-        List<Airport> airports = new ArrayList<>();
-        int lineNumber = 0;
-        for (String[] airportData : filteredAirports) {
-            try {
-                Airport airport = airportMapper.mapToAirport(airportData);
-                airports.add(airport);
-            } catch (NumberFormatException e) {
-                System.err.printf("Error during processing at line %d: %s%n", lineNumber, e.getMessage());
-
-                e.printStackTrace();
-            }
-            lineNumber++;
-        }
+        List<Airport> airports = mapAirportData(filteredAirports);
         airportRepository.saveAll(airports);
     }
-
-
 
 }

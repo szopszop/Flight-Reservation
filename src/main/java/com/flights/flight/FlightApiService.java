@@ -1,11 +1,7 @@
-package com.flights.service;
+package com.flights.flight;
 
-import com.flights.entities.Flight;
-import com.flights.mapper.FlightMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

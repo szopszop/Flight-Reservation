@@ -1,36 +1,42 @@
-package com.flights.entities;
+package com.flights.flightReservation;
 
+import com.flights.flight.Flight;
+import com.flights.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "flight_reservations")
+public class FlightReservation {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    @Column( nullable = false)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
 
     @Column(nullable = false)
-    private String email;
+    private LocalDateTime reservationTime;
 
     @Column(nullable = false)
-    private String password;
+    private LocalDate flightDate;
 
-    @OneToMany(mappedBy = "user")
-    private List<FlightReservation> flightReservations;
 
 }

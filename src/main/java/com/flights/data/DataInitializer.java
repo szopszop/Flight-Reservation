@@ -1,21 +1,24 @@
 package com.flights.data;
 
-import com.flights.service.AirportService;
+import com.flights.airline.AirlineService;
+import com.flights.airport.AirportService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class DataInitializer {
 
-    @Autowired
-    private AirportService airportService;
+
+    private final AirportService airportService;
+    private final AirlineService airlineService;
 
 
     @PostConstruct
     public void init() {
         airportService.transferAirportsToDatabase();
-
+        airlineService.transferAirlinesToDatabase();
     }
 
 

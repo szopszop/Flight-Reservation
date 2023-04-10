@@ -1,4 +1,4 @@
-package com.flights.entities;
+package com.flights.airport;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,21 +12,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "airlines")
-public class Airline {
+@Table(name = "airports")
+public class Airport {
+
     @Id
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "alias")
-    private String alias;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "country")
+    private String country;
     @Column(name = "iata_code")
     private String IATA_Code;
     @Column(name = "icao_code")
     private String ICAO_Code;
-    @Column(name = "callsign")
-    private String callSign;
-    @Column(name = "country")
-    private String country;
+    @Column(name = "latitude")
+    private double latitude;
+    @Column(name = "longitude")
+    private double longitude;
+    @Column(name = "timezone")
+    private double timezone;
+    @Column(name = "dst")
+    private String dst;
+
+
 }

@@ -1,4 +1,4 @@
-package com.flights.mapper;
+package com.flights.flight;
 
 public class FlightMapper {
 }
