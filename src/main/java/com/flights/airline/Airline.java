@@ -21,8 +21,6 @@ public class Airline {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "alias")
-    private String alias;
     @Column(name = "iata_code")
     private String IATA_Code;
     @Column(name = "icao_code")

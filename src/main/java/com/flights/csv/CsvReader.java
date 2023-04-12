@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,9 @@ public class CsvReader {
                 .withCSVParser(new CSVParserBuilder().withSeparator(',').withQuoteChar('"').build()).build()) {
             return reader.readAll().stream()
                     .skip(1)
+                    .map(row -> Arrays.stream(row)
+                            .map(value -> "\\N".equals(value) ? null : value)
+                            .toArray(String[]::new))
                     .collect(Collectors.toList());
         }
     }
