@@ -1,7 +1,8 @@
 package com.flights.airline;
 
 import org.springframework.stereotype.Component;
-import static com.flights.util.Validator.*;
+
+import static com.flights.util.Validator.isValidValue;
 
 @Component
 public class AirlineMapper {
@@ -16,7 +17,6 @@ public class AirlineMapper {
                 .country(isValidValue(data[6]) ? data[6] : null)
                 .build();
     }
-
 
 
 }

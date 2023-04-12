@@ -1,5 +1,4 @@
 package com.flights.airport;
-import java.util.Optional;
 
 import com.flights.csv.CsvReader;
 import com.flights.csv.DataFilter;
@@ -26,6 +25,16 @@ public class AirportService {
     private static final int IATA_CODE_COLUMN_HUM_DATA = 13;
     private static final int IATA_CODE_COLUMN_OPEN_LIGHTS = 4;
     private static final int ID_CODE_OPEN_FLIGHT = 0;
+
+    public List<AirportDto> getAllAirports() {
+        List<Airport> airports = airportRepository.findAll();
+        return convertToAirportDto(airports);
+    }
+
+    public List<AirportDto> getAirportsByCountry(String country) {
+        List<Airport> airportsByCountry = airportRepository.findByCountry(country);
+        return convertToAirportDto(airportsByCountry);
+    }
 
     public void transferAirportsToDatabase() {
         List<String[]> filteredAirports = filterAirportByIATA();
@@ -74,5 +83,11 @@ public class AirportService {
         }
         return airports;
     }
+    private List<AirportDto> convertToAirportDto(List<Airport> airports) {
+        return airports.stream()
+                .map(airportMapper::toAirportDto)
+                .collect(Collectors.toList());
+    }
+
 
 }

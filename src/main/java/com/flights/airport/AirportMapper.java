@@ -21,4 +21,34 @@ public class AirportMapper {
                 .dst(isValidValue(data[10]) ? data[10] : null)
                 .build();
     }
+
+    public AirportDto toAirportDto(Airport airport) {
+        return AirportDto.builder()
+                .id(airport.getId())
+                .name(airport.getName())
+                .city(airport.getCity())
+                .country(airport.getCountry())
+                .IATA_Code(airport.getIATA_Code())
+                .ICAO_Code(airport.getICAO_Code())
+                .latitude(airport.getLatitude())
+                .longitude(airport.getLongitude())
+                .timezone(airport.getTimezone())
+                .dst(airport.getDst())
+                .build();
+    }
+
+    public Airport toAirport(AirportDto airportDto) {
+        return Airport.builder()
+                .id(airportDto.getId())
+                .name(airportDto.getName())
+                .city(airportDto.getCity())
+                .country(airportDto.getCountry())
+                .IATA_Code(airportDto.getIATA_Code())
+                .ICAO_Code(airportDto.getICAO_Code())
+                .latitude(airportDto.getLatitude())
+                .longitude(airportDto.getLongitude())
+                .timezone(airportDto.getTimezone())
+                .dst(airportDto.getDst())
+                .build();
+    }
 }
