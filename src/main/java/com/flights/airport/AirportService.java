@@ -3,6 +3,7 @@ package com.flights.airport;
 import com.flights.csv.CsvReader;
 import com.flights.csv.DataFilter;
 import com.flights.exception.MappingExceptionHandler;
+import com.flights.util.DistanceCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +27,12 @@ public class AirportService {
     private static final int IATA_CODE_COLUMN_OPEN_LIGHTS = 4;
     private static final int ID_CODE_OPEN_FLIGHT = 0;
 
-    public List<AirportDto> getAllAirports() {
+    public List<AirportDto> findAllAirports() {
         List<Airport> airports = airportRepository.findAll();
         return convertToAirportDto(airports);
     }
 
-    public List<AirportDto> getAirportsByCountry(String country) {
+    public List<AirportDto> findAirportsByCountry(String country) {
         List<Airport> airportsByCountry = airportRepository.findByCountry(country);
         return convertToAirportDto(airportsByCountry);
     }
@@ -87,6 +88,18 @@ public class AirportService {
         return airports.stream()
                 .map(airportMapper::toAirportDto)
                 .collect(Collectors.toList());
+    }
+
+    public Set<String> findDistinctCountries() {
+        return airportRepository.findDistinctCountries();
+    }
+
+    public List<AirportDto> findAirportsNearby(double latitude, double longitude, double distance) {
+        return convertToAirportDto(airportRepository.findAll().stream()
+                .filter(airport -> DistanceCalculator.calculateDistance(
+                        latitude, longitude,
+                        airport.getLatitude(), airport.getLongitude()) <= distance)
+                .collect(Collectors.toList()));
     }
 
 

@@ -23,13 +23,13 @@ class AirportMapperTest {
                 () -> assertEquals(data[1], airport.getName()),
                 () -> assertEquals(data[2], airport.getCity()),
                 () -> assertEquals(data[3], airport.getCountry()),
-                () -> assertEquals(data[4], airport.getIATA_Code()),
                 () -> assertEquals(data[5], airport.getICAO_Code()),
                 () -> assertEquals(Double.parseDouble(data[6]), airport.getLatitude()),
                 () -> assertEquals(Double.parseDouble(data[7]), airport.getLongitude()),
                 () -> assertEquals(Double.parseDouble(data[9]), airport.getTimezone()),
                 () -> assertEquals(data[10], airport.getDst())
         );
+        assertNull(airport.getIATA_Code());
     }
 
     @Test

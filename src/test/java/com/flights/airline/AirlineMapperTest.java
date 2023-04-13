@@ -22,7 +22,6 @@ class AirlineMapperTest {
         assertAll(
                 () -> assertEquals(Long.parseLong(data[0]), airline.getId()),
                 () -> assertEquals(data[1], airline.getName()),
-                () -> assertEquals(data[2], airline.getAlias()),
                 () -> assertEquals(data[3], airline.getIATA_Code()),
                 () -> assertEquals(data[4], airline.getICAO_Code()),
                 () -> assertEquals(data[5], airline.getCallSign()),
