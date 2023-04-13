@@ -21,4 +21,28 @@ public class RouteMapper {
             return null;
         }
     }
+
+    public RouteDto mapToRouteDto(Route route) {
+        return RouteDto.builder()
+                .id(route.getId())
+                .airline(route.getAirline())
+                .airlineId(route.getAirlineId())
+                .sourceAirport(route.getSourceAirport())
+                .sourceAirportId(route.getSourceAirportId())
+                .destinationAirport(route.getDestinationAirport())
+                .destinationAirportId(route.getDestinationAirportId())
+                .build();
+    }
+
+    public Route mapToRoute(RouteDto routeDto) {
+        return Route.builder()
+                .id(routeDto.getId())
+                .airline(routeDto.getAirline())
+                .airlineId(routeDto.getAirlineId())
+                .sourceAirport(routeDto.getSourceAirport())
+                .sourceAirportId(routeDto.getSourceAirportId())
+                .destinationAirport(routeDto.getDestinationAirport())
+                .destinationAirportId(routeDto.getDestinationAirportId())
+                .build();
+    }
 }

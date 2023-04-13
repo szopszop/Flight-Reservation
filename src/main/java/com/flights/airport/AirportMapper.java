@@ -22,7 +22,7 @@ public class AirportMapper {
                 .build();
     }
 
-    public AirportDto toAirportDto(Airport airport) {
+    public AirportDto mapToAirportDto(Airport airport) {
         return AirportDto.builder()
                 .id(airport.getId())
                 .name(airport.getName())
@@ -37,7 +37,7 @@ public class AirportMapper {
                 .build();
     }
 
-    public Airport toAirport(AirportDto airportDto) {
+    public Airport mapToAirport(AirportDto airportDto) {
         return Airport.builder()
                 .id(airportDto.getId())
                 .name(airportDto.getName())

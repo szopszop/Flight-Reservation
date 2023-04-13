@@ -27,25 +27,37 @@ public class AirportService {
     private static final int IATA_CODE_COLUMN_OPEN_LIGHTS = 4;
     private static final int ID_CODE_OPEN_FLIGHT = 0;
 
-    public List<AirportDto> findAllAirports() {
-        List<Airport> airports = airportRepository.findAll();
-        return convertToAirportDto(airports);
-    }
-
-    public List<AirportDto> findAirportsByCountry(String country) {
-        List<Airport> airportsByCountry = airportRepository.findByCountry(country);
-        return convertToAirportDto(airportsByCountry);
-    }
-
     public void transferAirportsToDatabase() {
         List<String[]> filteredAirports = filterAirportByIATA();
         List<Airport> airports = mapAirportData(filteredAirports);
         airportRepository.saveAll(airports);
     }
 
+    public List<AirportDto> findAllAirports() {
+        List<Airport> airports = airportRepository.findAll();
+        return convertToAirportDtos(airports);
+    }
+
+    public List<AirportDto> findAirportsByCountry(String country) {
+        List<Airport> airportsByCountry = airportRepository.findByCountry(country);
+        return convertToAirportDtos(airportsByCountry);
+    }
+
     public Set<String> getFilteredAirportIds() {
         List<String[]> filteredAirports = filterAirportByIATA();
         return dataFilter.getKeys(filteredAirports, ID_CODE_OPEN_FLIGHT);
+    }
+
+    public Set<String> findDistinctCountries() {
+        return airportRepository.findDistinctCountries();
+    }
+
+    public List<AirportDto> findAirportsNearby(double latitude, double longitude, double distance) {
+        return convertToAirportDtos(airportRepository.findAll().stream()
+                .filter(airport -> DistanceCalculator.calculateDistance(
+                        latitude, longitude, airport.getLatitude(), airport.getLongitude())
+                        <= distance)
+                .collect(Collectors.toList()));
     }
 
     private List<String[]> importAirportDataFromHumData() {
@@ -84,23 +96,13 @@ public class AirportService {
         }
         return airports;
     }
-    private List<AirportDto> convertToAirportDto(List<Airport> airports) {
+    private List<AirportDto> convertToAirportDtos(List<Airport> airports) {
         return airports.stream()
-                .map(airportMapper::toAirportDto)
+                .map(airportMapper::mapToAirportDto)
                 .collect(Collectors.toList());
     }
 
-    public Set<String> findDistinctCountries() {
-        return airportRepository.findDistinctCountries();
-    }
 
-    public List<AirportDto> findAirportsNearby(double latitude, double longitude, double distance) {
-        return convertToAirportDto(airportRepository.findAll().stream()
-                .filter(airport -> DistanceCalculator.calculateDistance(
-                        latitude, longitude,
-                        airport.getLatitude(), airport.getLongitude()) <= distance)
-                .collect(Collectors.toList()));
-    }
 
 
 }

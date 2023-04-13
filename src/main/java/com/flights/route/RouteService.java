@@ -5,10 +5,11 @@ import com.flights.csv.CsvReader;
 import com.flights.csv.DataFilter;
 import com.flights.exception.MappingExceptionHandler;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +29,19 @@ public class RouteService {
         List<Route> routes = mapRouteData(routesData);
         routeRepository.saveAll(routes);
     }
+
+    public List<RouteDto> findRoutesByAirlineId(Long airlineId) {
+        return convertToRouteDtos(routeRepository.findByAirlineId(airlineId));
+    }
+
+    public List<RouteDto> findRoutesBySourceAirport(Long airportId) {
+        return convertToRouteDtos(routeRepository.findBySourceAirportId(airportId));
+    }
+
+    public List<RouteDto> findRoutesByDestinationAirport(Long airportId) {
+        return convertToRouteDtos(routeRepository.findByDestinationAirportId(airportId));
+    }
+
 
     private List<String[]> importRoutesData() {
         return csvReader.readFile(ROUTES_FILE_PATH);
@@ -49,6 +63,13 @@ public class RouteService {
             }
         }
         return routes;
+    }
+
+
+    private List<RouteDto> convertToRouteDtos(List<Route> routes) {
+        return routes.stream()
+                .map(routeMapper::mapToRouteDto)
+                .collect(Collectors.toList());
     }
 
 }

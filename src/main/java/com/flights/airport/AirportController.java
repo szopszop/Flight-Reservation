@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/airports")
+@RequestMapping("api/v1/airports")
 @AllArgsConstructor
 public class AirportController {
 
