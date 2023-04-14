@@ -9,9 +9,11 @@ import com.flights.util.DistanceCalculator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +30,18 @@ public class FlightService {
     public List<Flight> saveUpcomingFlights(String iataCode) {
         ResponseEntity<String> response = airlabsApiService.findUpcomingFlights(iataCode);
         List<Flight> flights = parseResponse(response.getBody());
-        return flightRepository.saveAll(flights);
+        List<Flight> newFlights = new ArrayList<>();
+        for (Flight flight : flights) {
+            if (flightRepository.findByFlightIata(flight.getFlightIata()).isEmpty()) {
+                newFlights.add(flight);
+            }
+        }
+        return flightRepository.saveAll(newFlights);
+    }
+
+    @Scheduled(fixedRate = 60 * 60 * 1000) // 1 hour
+    public void deleteOldFlights() {
+        flightRepository.deleteByDepartureTimeBefore(LocalDateTime.now().minusDays(1));
     }
 
     private List<Flight> parseResponse(String responseBody) {
