@@ -2,10 +2,9 @@ package com.flights.flight;
 
 import com.flights.airport.Airport;
 import com.flights.flightReservation.FlightReservation;
+import com.flights.util.DistanceCalculator;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,7 +15,8 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
+@Builder
 @Entity
 @Table(name = "flights")
 public class Flight {
@@ -28,24 +28,53 @@ public class Flight {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "departure_airport_id")
+    @JoinColumn(name = "departure_airport")
     private Airport departureAirport;
+//      dep_iata;
+
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "arrival_airport_id")
+    @JoinColumn(name = "arrival_airport")
     private Airport arrivalAirport;
 
     @NotNull
     private LocalDateTime departureTime;
+    @NotNull
+    private LocalDateTime departureTimeUtc;
 
     @NotNull
     private LocalDateTime arrivalTime;
+    @NotNull
+    private LocalDateTime arrivalTimeUtc;
+
+    private String airlineIata;
+
+
+    private String flightIata;
+
+
+
+    private String flightNumber;
+
+    private String depTerminal;
+
+
+    private String depGate;
+
+
+    private String status;
+    private int duration;
+    private int delayed;
+
+    private String aircraftIcao;
 
     @NotNull
-    private BigDecimal price;
+    private BigDecimal price;  // TODO: distance between airports * some factor
 
     @OneToMany(mappedBy = "flight")
     private List<FlightReservation> reservations;
 
 }
+
+

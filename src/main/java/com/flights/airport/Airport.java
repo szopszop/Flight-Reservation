@@ -1,13 +1,13 @@
 package com.flights.airport;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.flights.flight.Flight;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -38,6 +38,13 @@ public class Airport {
     private Double timezone;
     @Column(name = "dst")
     private String dst;
+
+    @OneToMany(mappedBy = "departureAirport", cascade = CascadeType.ALL)
+    private List<Flight> departureFlights;
+
+    @OneToMany(mappedBy = "arrivalAirport", cascade = CascadeType.ALL)
+    private List<Flight> arrivalFlights;
+
 
 
 }

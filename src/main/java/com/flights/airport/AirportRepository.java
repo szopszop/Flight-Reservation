@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public interface AirportRepository extends JpaRepository<Airport, UUID> {
+public interface AirportRepository extends JpaRepository<Airport, Long> {
 
     List<Airport> findByCountry(String country);
 
