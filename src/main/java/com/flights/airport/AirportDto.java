@@ -15,8 +15,8 @@ public class AirportDto {
     private String name;
     private String city;
     private String country;
-    private String IATA_Code;
-    private String ICAO_Code;
+    private String iataCode;
+    private String icaoCode;
     private Double latitude;
     private Double longitude;
     private Double timezone;

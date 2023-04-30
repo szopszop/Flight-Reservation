@@ -19,9 +19,9 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        airportService.transferAirportsToDatabase();
-        airlineService.transferAirlinesToDatabase();
-        routeService.transferRoutesToDatabase();
+//        airportService.transferAirportsToDatabase();
+//        airlineService.transferAirlinesToDatabase();
+//        routeService.transferRoutesToDatabase();
     }
 
 

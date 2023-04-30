@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface FlightReservationRepository extends JpaRepository<FlightReservation, UUID> {
 
     List<FlightReservation> findByFlight(Flight flight);
+
 }

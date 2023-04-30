@@ -12,11 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.flights.airline.AirlineService.ACTIVE_COLUMN;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
 class AirlineServiceTest {
 
@@ -54,8 +49,8 @@ class AirlineServiceTest {
         Airline airline = Airline.builder()
                 .id(1L)
                 .name("Airline1")
-                .IATA_Code("IATA1")
-                .ICAO_Code("ICAO1")
+                .iataCode("IATA1")
+                .icaoCode("ICAO1")
                 .callSign("CallSign1")
                 .country("Country1")
                 .build();
@@ -63,27 +58,11 @@ class AirlineServiceTest {
         airlines = Arrays.asList(airline);
     }
 
-//    @Test
-//    void importAirlinesData() {
-//        when(csvReader.readFile(anyString())).thenReturn(airlinesData);
-//        List<String[]> result = airlineService.importAirlinesData();
-//        assertEquals(airlinesData, result);
-//    }
+    @Test
+    void test_transferAirlinesToDatabase() {
 
-//    @Test
-//    void filterActiveAirlines() {
-//        when(csvReader.readFile(anyString())).thenReturn(airlinesData);
-//        when(dataFilter.doFilter(airlinesData, ACTIVE_COLUMN, "Y")).thenReturn(filteredAirlinesData);
-//        List<String[]> results = airlineService.filterActiveAirlines();
-//        assertEquals(filteredAirlinesData, results);
-//    }
+    }
 
-//    @Test
-//    void mapAirlineData() {
-//        when(airlineMapper.mapToAirline(filteredAirlinesData.get(0))).thenReturn(airlines.get(0));
-//        List<Airline> result = airlineService.mapAirlineData(filteredAirlinesData);
-//        assertEquals(airlines, result);
-//    }
 
 
 }

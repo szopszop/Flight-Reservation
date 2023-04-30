@@ -1,5 +1,7 @@
 package com.flights.flight;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flights.airport.Airport;
 import com.flights.flightReservation.FlightReservation;
 import com.flights.util.DistanceCalculator;
@@ -26,26 +28,21 @@ public class Flight {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
+    @JsonBackReference
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "departure_airport")
+    @JoinColumn(name = "departure_airport_id")
     private Airport departureAirport;
-//      dep_iata;
 
-
-    @NotNull
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "arrival_airport")
+    @JoinColumn(name = "arrival_airport_id")
     private Airport arrivalAirport;
 
-    @NotNull
     private LocalDateTime departureTime;
-    @NotNull
     private LocalDateTime departureTimeUtc;
 
-    @NotNull
     private LocalDateTime arrivalTime;
-    @NotNull
     private LocalDateTime arrivalTimeUtc;
 
     private String airlineIata;
@@ -69,9 +66,9 @@ public class Flight {
 
     private String aircraftIcao;
 
-    @NotNull
-    private BigDecimal price;  // TODO: distance between airports * some factor
+    private BigDecimal price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "flight")
     private List<FlightReservation> reservations;
 
