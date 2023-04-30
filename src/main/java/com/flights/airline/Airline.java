@@ -22,9 +22,9 @@ public class Airline {
     @Column(name = "name")
     private String name;
     @Column(name = "iata_code")
-    private String IATA_Code;
+    private String iataCode;
     @Column(name = "icao_code")
-    private String ICAO_Code;
+    private String icaoCode;
     @Column(name = "callsign")
     private String callSign;
     @Column(name = "country")

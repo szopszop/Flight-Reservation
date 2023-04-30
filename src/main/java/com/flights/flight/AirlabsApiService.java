@@ -1,13 +1,14 @@
 package com.flights.flight;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Service
 public class AirlabsApiService {
@@ -17,13 +18,22 @@ public class AirlabsApiService {
 
     private static final String API_URL = "https://airlabs.co/api/v9/";
     private static final String SCHEDULES = "schedules?dep_iata=";
+    private static final String keyVariable = "&api_key=";
+
 
     public ResponseEntity<String> findUpcomingFlights(String iataCode) {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-API-KEY", apiKey);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = API_URL + SCHEDULES + iataCode;
-        return restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(API_URL + SCHEDULES + iataCode + keyVariable + apiKey
+                    ))
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            return ResponseEntity.status(response.statusCode()).body(response.body());
+        } catch (IOException | InterruptedException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 }

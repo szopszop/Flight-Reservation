@@ -42,6 +42,9 @@ public class AirportService {
     public Airport findAirportById(Long id) {
         return airportRepository.findById(id).orElse(null);
     }
+    public Airport findAirportByIataCode(String iataCode) {
+        return airportRepository.findByIataCode(iataCode).orElse(null);
+    }
 
     public List<AirportDto> findAirportsByCountry(String country) {
         List<Airport> airportsByCountry = airportRepository.findByCountry(country);

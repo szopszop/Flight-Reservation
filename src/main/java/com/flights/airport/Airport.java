@@ -1,5 +1,6 @@
 package com.flights.airport;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.flights.flight.Flight;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,9 +28,9 @@ public class Airport {
     @Column(name = "country")
     private String country;
     @Column(name = "iata_code")
-    private String IATA_Code;
+    private String iataCode;
     @Column(name = "icao_code")
-    private String ICAO_Code;
+    private String icaoCode;
     @Column(name = "latitude")
     private Double latitude;
     @Column(name = "longitude")
@@ -39,10 +40,12 @@ public class Airport {
     @Column(name = "dst")
     private String dst;
 
-    @OneToMany(mappedBy = "departureAirport", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "departureAirport")
     private List<Flight> departureFlights;
 
-    @OneToMany(mappedBy = "arrivalAirport", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "arrivalAirport")
     private List<Flight> arrivalFlights;
 
 

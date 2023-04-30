@@ -1,9 +1,12 @@
 package com.flights.util;
 
 
+import com.flights.airport.Airport;
+
+import java.math.BigDecimal;
+
 public class DistanceCalculator {
 
-    private final static int EARTH_RADIUS = 6731;
 
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371;
@@ -17,5 +20,11 @@ public class DistanceCalculator {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
+    }
+
+    public static BigDecimal calculatePrice(Airport depAirport, Airport arrAirport) {
+        double distance = calculateDistance(depAirport.getLatitude(), depAirport.getLongitude(),
+                arrAirport.getLatitude(), arrAirport.getLongitude());
+        return new BigDecimal(distance * 1.5);
     }
 }

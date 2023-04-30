@@ -16,9 +16,9 @@ public class FlightController {
 
     private final FlightService flightService;
 
-    @GetMapping("/{iataCode")
-    public ResponseEntity<List<Flight>> findUpcomingFlights(@PathVariable String iataCode) {
-        List<Flight> flights = flightService.saveUpcomingFlights(iataCode);
+    @GetMapping("/{iataCode}")
+    public ResponseEntity<List<FlightDto>> findUpcomingFlights(@PathVariable String iataCode) {
+        List<FlightDto> flights = flightService.findUpcomingFlights(iataCode);
         return ResponseEntity.ok(flights);
     }
 
