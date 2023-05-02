@@ -33,6 +33,7 @@ public class FlightService {
         ResponseEntity<String> response = airlabsApiService.findUpcomingFlights(iataCode);
         List<Flight> flights = flightMapper.parseResponse(response.getBody());
         return flights.stream()
+                .filter(flight -> flight.getFlightIata() != null && !flight.getFlightIata().isEmpty())
                 .filter(flight -> flightRepository.findByFlightIata(flight.getFlightIata()).isEmpty())
                 .map(flightRepository::save)
                 .collect(Collectors.toList());
