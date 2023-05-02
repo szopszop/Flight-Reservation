@@ -11,11 +11,8 @@ import java.util.UUID;
 
 public interface AirportRepository extends JpaRepository<Airport, Long> {
 
-    List<Airport> findByCountry(String country);
-
-    @Query("SELECT DISTINCT a.country FROM Airport a")
-    Set<String> findDistinctCountries();
-
+    Optional<List<Airport>> findByCountryId(Long countryId);
     Optional<Airport> findByIataCode(String iataCode);
+
 
 }

@@ -1,6 +1,7 @@
 package com.flights.airport;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.flights.country.Country;
 import com.flights.flight.Flight;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,8 +26,6 @@ public class Airport {
     private String name;
     @Column(name = "city")
     private String city;
-    @Column(name = "country")
-    private String country;
     @Column(name = "iata_code")
     private String iataCode;
     @Column(name = "icao_code")
@@ -39,6 +38,10 @@ public class Airport {
     private Double timezone;
     @Column(name = "dst")
     private String dst;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "departureAirport")
