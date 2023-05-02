@@ -1,10 +1,12 @@
 package com.flights.airport;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -20,14 +22,10 @@ public class AirportController {
         return ResponseEntity.ok(airportService.findAllAirports());
     }
 
-    @GetMapping("/{country}")
-    public ResponseEntity<List<AirportDto>> findAirportByCountry(@PathVariable(value = "country") String country) {
-        return ResponseEntity.ok(airportService.findAirportsByCountry(country));
-    }
+    @GetMapping("/{countryId}")
+    public ResponseEntity<List<AirportDto>> findAirportByCountryId(@PathVariable(value = "countryId") Long countryId) {
+        return ResponseEntity.ok(airportService.findAirportsByCountryId(countryId));
 
-    @GetMapping("/countries")
-    public ResponseEntity<Set<String>> findDistinctCountries() {
-        return ResponseEntity.ok(airportService.findDistinctCountries());
     }
 
     @GetMapping("/nearby")

@@ -109,7 +109,7 @@ public class FlightMapper {
         return javaTimeModule;
     }
 
-    public List<Flight> parseResponse(String responseBody) {
+    List<Flight> parseResponse(String responseBody) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(getJavaTimeModule());
 
@@ -122,6 +122,7 @@ public class FlightMapper {
             }
             List<FlightApiResponseDto> flightDtos = objectMapper.convertValue(responseNode, new TypeReference<>() {});
             return flightDtos.stream()
+                    .filter(flightDto -> !flightDto.getArrIata().equals("") || flightDto.getArrIata() != null)
                     .map(this::mapToFlight)
                     .collect(Collectors.toList());
         } catch (JsonProcessingException e) {

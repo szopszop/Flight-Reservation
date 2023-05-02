@@ -46,9 +46,13 @@ public class AirportService {
         return airportRepository.findByIataCode(iataCode).orElse(null);
     }
 
-    public List<AirportDto> findAirportsByCountry(String country) {
-        List<Airport> airportsByCountry = airportRepository.findByCountry(country);
-        return convertToAirportDtos(airportsByCountry);
+    public List<AirportDto> findAirportsByCountryId(Long countryId) {
+        Optional<List<Airport>> airportsByCountry = airportRepository.findByCountryId(countryId);
+        if (airportsByCountry.isPresent()) {
+            return convertToAirportDtos(airportsByCountry.get());
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public Set<String> getFilteredAirportIds() {
@@ -56,9 +60,7 @@ public class AirportService {
         return dataFilter.getKeys(filteredAirports, ID_CODE_OPEN_FLIGHT);
     }
 
-    public Set<String> findDistinctCountries() {
-        return airportRepository.findDistinctCountries();
-    }
+
 
     public List<AirportDto> findAirportsNearby(double latitude, double longitude, double distance) {
         return convertToAirportDtos(airportRepository.findAll().stream()

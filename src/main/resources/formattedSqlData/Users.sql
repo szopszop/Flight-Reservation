@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS users;
 
 INSERT INTO users (id, username, email, password)
 VALUES
