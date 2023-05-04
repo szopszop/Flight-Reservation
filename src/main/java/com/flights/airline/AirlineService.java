@@ -1,5 +1,6 @@
 package com.flights.airline;
 
+import com.flights.airport.AirportDto;
 import com.flights.csv.CsvReader;
 import com.flights.csv.DataFilter;
 import com.flights.exception.MappingExceptionHandler;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -28,6 +32,16 @@ public class AirlineService {
         airlineRepository.saveAll(airlines);
     }
 
+    public List<AirlineDto> findAllAirlines() {
+        List<Airline> airlines = airlineRepository.findAll();
+        return convertToAirlineDtos(airlines);
+    }
+
+    public AirlineDto findAirlineById(Long airlineId) {
+        Airline airline = airlineRepository.findById(airlineId)
+                .orElseThrow(() -> new NoSuchElementException("Airline has not been found."));
+        return convertToAirlineDto(airline);
+    }
     private List<String[]> importAirlinesData() {
         return csvReader.readFile(AIRLINES_FILE_PATH);
     }
@@ -54,6 +68,16 @@ public class AirlineService {
         }
         return airlines;
     }
+
+    private List<AirlineDto> convertToAirlineDtos(List<Airline> airlines) {
+        return airlines.stream()
+                .map(airlineMapper::mapToAirlineDto)
+                .collect(Collectors.toList());
+    }
+
+    private AirlineDto convertToAirlineDto(Airline airline) {
+        return airlineMapper.mapToAirlineDto(airline);
+}
 
 
 }

@@ -35,7 +35,7 @@ public class AirportMapper {
                 .id(airport.getId())
                 .name(airport.getName())
                 .city(airport.getCity())
-                .country(airport.getCountry().getName())
+                .countryId(airport.getCountry().getId())
                 .iataCode(airport.getIataCode())
                 .icaoCode(airport.getIcaoCode())
                 .latitude(airport.getLatitude())
@@ -46,7 +46,7 @@ public class AirportMapper {
     }
 
     public Airport mapToAirport(AirportDto airportDto) {
-        Country country = countryService.findCountryByName(airportDto.getCountry());
+        Country country = countryService.findCountryById(airportDto.getCountryId());
         return Airport.builder()
                 .id(airportDto.getId())
                 .name(airportDto.getName())

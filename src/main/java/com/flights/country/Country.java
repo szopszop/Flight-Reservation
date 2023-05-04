@@ -2,6 +2,7 @@ package com.flights.country;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.flights.airline.Airline;
 import com.flights.airport.Airport;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,10 @@ public class Country {
     @JsonIgnore
     @OneToMany(mappedBy = "country")
     private List<Airport> airports;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "country")
+    private List<Airline> airlines;
 
 
 

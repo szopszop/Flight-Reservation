@@ -7,10 +7,7 @@ import com.flights.util.DistanceCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,8 +36,10 @@ public class AirportService {
         return convertToAirportDtos(airports);
     }
 
-    public Airport findAirportById(Long id) {
-        return airportRepository.findById(id).orElse(null);
+    public AirportDto findAirportById(Long id) {
+        Airport airport = airportRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Airport has not been found"));
+        return convertToAirportDto(airport);
     }
     public Airport findAirportByIataCode(String iataCode) {
         return airportRepository.findByIataCode(iataCode).orElse(null);
@@ -110,6 +109,9 @@ public class AirportService {
         return airports.stream()
                 .map(airportMapper::mapToAirportDto)
                 .collect(Collectors.toList());
+    }
+    private AirportDto convertToAirportDto(Airport airport) {
+        return airportMapper.mapToAirportDto(airport);
     }
 
 

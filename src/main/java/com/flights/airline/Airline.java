@@ -1,9 +1,7 @@
 package com.flights.airline;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.flights.country.Country;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "airlines")
 public class Airline {
+
     @Id
     @Column(name = "id")
     private Long id;
@@ -27,6 +26,8 @@ public class Airline {
     private String icaoCode;
     @Column(name = "callsign")
     private String callSign;
-    @Column(name = "country")
-    private String country;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 }
