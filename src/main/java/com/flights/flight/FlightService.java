@@ -3,6 +3,7 @@ package com.flights.flight;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,14 @@ public class FlightService {
         flightRepository.deleteByDepartureTimeBefore(LocalDateTime.now().minusDays(1));
     }
 
+    @Cacheable(value = "flights")
     public List<FlightDto> findUpcomingFlights(String iataCode) {
-        List<Flight> flights = saveUpcomingFlightsIntoDatabase(iataCode);
+        List<Flight> flights = flightRepository.findUpcomingFlights(iataCode, LocalDateTime.now());
+
+        if (flights.isEmpty()) {
+            flights = saveUpcomingFlightsIntoDatabase(iataCode);
+        }
+
         return convertToFlightDtos(flights);
     }
 
