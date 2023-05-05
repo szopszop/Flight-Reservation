@@ -1,5 +1,6 @@
 package com.flights.flight;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class FlightService {
     private final FlightRepository flightRepository;
     private final FlightMapper flightMapper;
 
+    @Transactional
     @Scheduled(fixedRate = 60 * 60 * 1000) // 1 hour
     public void deleteOldFlights() {
         flightRepository.deleteByDepartureTimeBefore(LocalDateTime.now().minusDays(1));
