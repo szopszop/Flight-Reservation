@@ -26,6 +26,10 @@ public class Country {
     private Long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "longitude")
+    private float longitude;
+    @Column(name = "latitude")
+    private float latitude;
 
     @JsonIgnore
     @OneToMany(mappedBy = "country")
