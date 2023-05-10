@@ -1,10 +1,6 @@
 package com.flights.util;
 
 
-import com.flights.airport.Airport;
-
-import java.math.BigDecimal;
-
 public class DistanceCalculator {
 
 
@@ -22,9 +18,4 @@ public class DistanceCalculator {
         return R * c;
     }
 
-    public static BigDecimal calculatePrice(Airport depAirport, Airport arrAirport) {
-        double distance = calculateDistance(depAirport.getLatitude(), depAirport.getLongitude(),
-                arrAirport.getLatitude(), arrAirport.getLongitude());
-        return new BigDecimal(distance * 1.5);
-    }
 }

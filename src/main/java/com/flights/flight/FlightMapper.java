@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.flights.util.DistanceCalculator.calculatePrice;
 import static com.flights.util.Validator.isValidValue;
 
 @Slf4j
@@ -48,31 +47,6 @@ public class FlightMapper {
                 .duration(flight.getDuration())
                 .delayed(flight.getDelayed())
                 .aircraftIcao(flight.getAircraftIcao())
-                .price(flight.getPrice())
-                .reservations(flight.getReservations())
-                .build();
-    }
-
-    public Flight mapToFlight(FlightDto flightDto) {
-        return Flight.builder()
-                .id(flightDto.getId())
-                .departureAirport(airportMapper.mapToAirport(flightDto.getDepartureAirport()))
-                .arrivalAirport(airportMapper.mapToAirport(flightDto.getArrivalAirport()))
-                .departureTime(flightDto.getDepartureTime())
-                .departureTimeUtc(flightDto.getDepartureTimeUtc())
-                .arrivalTime(flightDto.getArrivalTime())
-                .arrivalTimeUtc(flightDto.getArrivalTimeUtc())
-                .airlineIata(flightDto.getAirlineIata())
-                .flightIata(flightDto.getFlightIata())
-                .flightNumber(flightDto.getFlightNumber())
-                .depTerminal(flightDto.getDepTerminal())
-                .depGate(flightDto.getDepGate())
-                .status(flightDto.getStatus())
-                .duration(flightDto.getDuration())
-                .delayed(flightDto.getDelayed())
-                .aircraftIcao(flightDto.getAircraftIcao())
-                .price(flightDto.getPrice())
-                .reservations(flightDto.getReservations())
                 .build();
     }
 
@@ -98,7 +72,6 @@ public class FlightMapper {
                 .duration(isValidValue(dto.getDuration()) ? dto.getDuration() : 0)
                 .delayed(isValidValue(dto.getDelayed()) ? dto.getDelayed() : 0)
                 .aircraftIcao(dto.getAircraftIcao())
-//                .price(calculatePrice(depAirport, arrAirport))
                 .build();
     }
 
@@ -122,7 +95,6 @@ public class FlightMapper {
             }
             List<FlightApiResponseDto> flightDtos = objectMapper.convertValue(responseNode, new TypeReference<>() {});
             return flightDtos.stream()
-                    .filter(flightDto -> !flightDto.getArrIata().equals("") || flightDto.getArrIata() != null)
                     .map(this::mapToFlight)
                     .collect(Collectors.toList());
         } catch (JsonProcessingException e) {

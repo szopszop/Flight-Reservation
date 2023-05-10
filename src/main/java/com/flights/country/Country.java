@@ -1,7 +1,6 @@
 package com.flights.country;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.flights.airline.Airline;
 import com.flights.airport.Airport;
 import jakarta.persistence.*;

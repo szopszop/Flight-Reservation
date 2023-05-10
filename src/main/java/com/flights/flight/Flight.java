@@ -1,18 +1,16 @@
 package com.flights.flight;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flights.airport.Airport;
-import com.flights.flightReservation.FlightReservation;
-import com.flights.util.DistanceCalculator;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.jetbrains.annotations.NotNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -44,33 +42,16 @@ public class Flight {
 
     private LocalDateTime arrivalTime;
     private LocalDateTime arrivalTimeUtc;
-
     private String airlineIata;
-
-
     private String flightIata;
-
-
-
     private String flightNumber;
-
     private String depTerminal;
-
-
     private String depGate;
-
-
     private String status;
     private int duration;
     private int delayed;
-
     private String aircraftIcao;
 
-    private BigDecimal price;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "flight")
-    private List<FlightReservation> reservations;
 
 }
 

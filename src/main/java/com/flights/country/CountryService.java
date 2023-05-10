@@ -19,11 +19,4 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    public Country findCountryByName(String name) {
-        return countryRepository.findByName(name).orElse(null);
-    }
-
-    public Country findCountryById(Long countryId) {
-        return countryRepository.findById(countryId).orElse(null);
-    }
 }
