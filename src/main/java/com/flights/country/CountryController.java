@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/country")
 @AllArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000/", "https://ochotadariusz.github.io/flight-reservations-react/"}, allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:3000/", "https://ochotadariusz.github.io/"}, allowedHeaders = "*", allowCredentials = "true")
 public class CountryController {
 
     private final CountryService countryService;
