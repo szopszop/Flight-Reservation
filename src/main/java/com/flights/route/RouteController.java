@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/routes")
 @AllArgsConstructor
+@CrossOrigin(origins = {"http://localhost:3000/", "https://ochotadariusz.github.io/flight-reservations-react/"}, allowedHeaders = "*", allowCredentials = "true")
 public class RouteController {
 
     private final RouteService routeService;
