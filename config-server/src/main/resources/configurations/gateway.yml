@@ -12,14 +12,42 @@ spring:
         locator:
           enabled: true
       routes:
+
+        - id: airlines
+          uri: http://localhost:8010
+          predicates:
+            - Path=/api/v1/airlines/**
+
+        - id: airports
+          uri: http://localhost:8020
+          predicates:
+            - Path=/api/v1/airports/**
+
+        - id: countries
+          uri: http://localhost:8030
+          predicates:
+            - Path=/api/v1/countries/**
+
+        - id: flights
+          uri: http://localhost:8040
+          predicates:
+            - Path=/api/v1/flights/**
+
         - id: reservations
-          uri: http://localhost:8070
+          uri: http://localhost:8050
           predicates:
             - Path=/api/v1/reservations/**
+
+        - id: routes
+          uri: http://localhost:8060
+          predicates:
+            - Path=/api/v1/flights/**
+
         - id: users
-          uri: http://localhost:8090
+          uri: http://localhost:8070
           predicates:
             - Path=/api/v1/users/**
+
 
 management:
   tracing:

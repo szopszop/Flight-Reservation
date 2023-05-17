@@ -1,5 +1,5 @@
 spring:
   application:
-    name: flights_users
+    name: users
   config:
     import: optional:configserver:http://localhost:8888

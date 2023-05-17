@@ -7,13 +7,13 @@ eureka:
 
 
 server:
-  port: 8070
+  port: 8010
 spring:
   application:
-    name: flights_reservations
+    name: airlines
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/flights_reservations
+    url: jdbc:postgresql://localhost:5432/flights_airlines
     username: postgres
     password: password
   jpa:
@@ -21,6 +21,10 @@ spring:
       ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  config:
+    countries-url: http://localhost:8030/api/v1/countries
 
 management:
   tracing:

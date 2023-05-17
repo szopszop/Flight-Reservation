@@ -21,7 +21,7 @@ public class ReservationController {
     }
 
     @GetMapping("/user/{user-id}")
-    public ResponseEntity<List<Reservation>> findAllReservations(@PathVariable("user-id") Integer userId) {
+    public ResponseEntity<List<Reservation>> findAllReservationsByUserId(@PathVariable("user-id") Integer userId) {
         return ResponseEntity.ok(reservationService.findAllReservationsByUserId(userId));
     }
 }
