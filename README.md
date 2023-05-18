@@ -1,6 +1,6 @@
 # Flight-Reservation
 Work in progress.<br>
-At this moment app has been divided into __7 microservices__, for now tested only with Postman.<br>
+At this moment app has been divided into microservices, for now tested only with Postman.<br>
 Monolith version is available at the second branch, with more tests.  <br>
 
 Right now User can:<br>
