@@ -5,10 +5,12 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-
 server:
   port: 8010
 spring:
+  sql:
+    init:
+      mode: always
   application:
     name: airlines
   datasource:
@@ -17,8 +19,9 @@ spring:
     username: postgres
     password: password
   jpa:
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 

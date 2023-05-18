@@ -9,6 +9,9 @@ eureka:
 server:
   port: 8030
 spring:
+  sql:
+    init:
+      mode: always
   application:
     name: countries
   datasource:
@@ -17,8 +20,9 @@ spring:
     username: postgres
     password: password
   jpa:
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
@@ -31,5 +35,3 @@ management:
   tracing:
     sampling:
       probability: 1.0
-
-

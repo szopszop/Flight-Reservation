@@ -20,7 +20,7 @@ public class AirportController {
         return ResponseEntity.ok(airportService.findAllAirports());
     }
 
-    @GetMapping("/countries/{country-id}")
+    @GetMapping("/{country-id}")
     public ResponseEntity<List<AirportDto>> findAirportByCountryId(@PathVariable(value = "country-id") Long countryId) {
         return ResponseEntity.ok(airportService.findAirportsByCountryId(countryId));
 

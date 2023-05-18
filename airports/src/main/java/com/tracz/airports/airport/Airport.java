@@ -28,15 +28,4 @@ public class Airport {
     private String dst;
     private Long countryId;
 
-//
-//    @JsonManagedReference
-//    @OneToMany(mappedBy = "departureAirport")
-//    private List<Flight> departureFlights;
-//
-//    @JsonManagedReference
-//    @OneToMany(mappedBy = "arrivalAirport")
-//    private List<Flight> arrivalFlights;
-
-
-
 }

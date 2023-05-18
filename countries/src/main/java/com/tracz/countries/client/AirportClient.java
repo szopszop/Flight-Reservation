@@ -9,7 +9,7 @@ import java.util.List;
 @FeignClient(name = "airport-service", url = "${application.config.airports-url}")
 public interface AirportClient {
 
-    @GetMapping("/countries/{country-id}")
+    @GetMapping("/{country-id}")
     List<Airport> findAllAirportsByCountryId(@PathVariable("country-id") Long countryId);
 
 }

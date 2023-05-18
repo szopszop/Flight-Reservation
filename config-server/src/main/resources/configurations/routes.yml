@@ -1,0 +1,36 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
+server:
+  port: 8060
+spring:
+  sql:
+    init:
+      mode: always
+  application:
+    name: routes
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/flights_airports
+    username: postgres
+    password: password
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  config:
+    countries-url: http://localhost:8020/api/v1/airports
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
