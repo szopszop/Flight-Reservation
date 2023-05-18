@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: airports
+  config:
+    import: optional:configserver:http://localhost:8888

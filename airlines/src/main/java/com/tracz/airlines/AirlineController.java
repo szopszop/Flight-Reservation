@@ -20,9 +20,13 @@ public class AirlineController {
         return ResponseEntity.ok(airlineService.findAllAirlines());
     }
 
-    @GetMapping("/{airlineId}")
-    public ResponseEntity<AirlineDto> findAirlineById(@PathVariable("airlineId") Long airlineId) {
+    @GetMapping("/{airline-id}")
+    public ResponseEntity<AirlineDto> findAirlineById(@PathVariable("airline-id") Long airlineId) {
         return ResponseEntity.ok(airlineService.findAirlineById(airlineId));
+    }
+    @GetMapping("/countries/{country-id}")
+    public ResponseEntity<List<AirlineDto>> findAirlinesByCountryId(@PathVariable("country-id") Long countryid) {
+        return ResponseEntity.ok(airlineService.findAirlinesByCountryId(countryid));
     }
 
 

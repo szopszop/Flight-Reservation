@@ -15,7 +15,7 @@ public class AirlineMapper {
                 .iataCode(airline.getIataCode())
                 .icaoCode(airline.getIcaoCode())
                 .callSign(airline.getCallSign())
-                .countryId(airline.getCountry().getId())
+                .countryId(airline.getCountryId())
                 .build();
     }
 

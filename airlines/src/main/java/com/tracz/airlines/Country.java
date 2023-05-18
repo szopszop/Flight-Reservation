@@ -4,8 +4,8 @@ public class Country {
 
     private Long id;
     private String name;
-    private float longitude;
-    private float latitude;
+    private Double longitude;
+    private Double latitude;
 
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "country")

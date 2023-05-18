@@ -27,6 +27,12 @@ public class AirlineService {
         return convertToAirlineDto(airline);
     }
 
+    public List<AirlineDto> findAirlinesByCountryId(Long countryId) {
+        List<Airline> airlines = airlineRepository.findByCountryId(countryId)
+                .orElseThrow(() -> new NoSuchElementException("Airline has not been found."));
+        return convertToAirlineDtos(airlines);
+    }
+
     private List<AirlineDto> convertToAirlineDtos(List<Airline> airlines) {
         return airlines.stream()
                 .map(airlineMapper::mapToAirlineDto)

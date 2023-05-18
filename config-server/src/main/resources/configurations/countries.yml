@@ -18,11 +18,18 @@ spring:
     password: password
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  config:
+    airlines-url: http://localhost:8010/api/v1/airlines
+    airports-url: http://localhost:8020/api/v1/airports
 
 management:
   tracing:
     sampling:
       probability: 1.0
+
+

@@ -16,18 +16,11 @@ import lombok.NoArgsConstructor;
 public class Airline {
 
     @Id
-    @Column(name = "id")
     private Long id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "iata_code")
     private String iataCode;
-    @Column(name = "icao_code")
     private String icaoCode;
-    @Column(name = "callsign")
     private String callSign;
+    private Long countryId;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
 }
