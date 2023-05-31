@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/flights")
 @AllArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000/", "https://ochotadariusz.github.io/"}, allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:3000/", "https://flight-reservations.eu.org"}, allowedHeaders = "*", allowCredentials = "true")
 public class FlightController {
 
     private final FlightService flightService;
